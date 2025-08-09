@@ -1,8 +1,22 @@
 body {
    font-family: 'Jockey One', sans-serif;
-   color:#FFFFFF;
+   color:#DAA2A2;
    margin: 0;
    padding: 0;
+}
+
+
+h1 { 
+  font-family: 'Jockey One', sans-serif; 
+  font-weight: 200;
+  color:#DAA2A2;  
+  text-align: center;
+  font-size: 400%; 
+}
+
+/* To change color of text when hovered over */
+h1:hover {
+    color:#AB6666; 
 }
 
 .background-image {
@@ -13,18 +27,40 @@ body {
     z-index: -1;
 }
 
-.header-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: -1;
-}
-
 .bear {
     position: absolute;
-    width: 535px;
-    left:436px;
+    left: 769px;
     top: 229px;
     z-index: 3;
+}
+
+.question_box {
+    position: relative;
+    left: 197px;
+    top: 30px;
+    z-index: 2;
+}
+
+.question_box img {
+  position: absolute;
+  z-index: -1;
+}
+
+.question_box p {
+  font-weight: 70; 
+  margin: 5px 0;
+  color: #DAA2A2;
+  font-size: 215%;
+  padding: 15px 20px;
+}
+
+
+.question_box input#totalTime {
+  width: 100px;
+  height: 20px;
+  padding: 8px 12px;
+  border: 1px solid #000000;
+  border-radius: 10px; 
+  outline: none;
+  box-shadow: 3px 4px 4px rgba(0, 0, 0, .25);
 }

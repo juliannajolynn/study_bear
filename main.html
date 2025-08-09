@@ -14,8 +14,9 @@
     <!-- (title for webpage on browser goes here) -->
     <title>Timey Bear: Study Clock</title>
 
-    <!-- (link to wedpage's stylesheet) -->
-    <link rel="stylesheet" href="style.css">
+    <!-- (link to wedpage's stylesheet and js) -->
+    <link rel="stylesheet" href="./style.css">
+    <script src="myscripts.js"></script>
 
 </head>
 
@@ -24,30 +25,27 @@
 <body>
 
     <!-- background -->
-     <div class="background-image">
-        <img src="images/background_dots.png" alt="">
-    </div>
-
+     <div class="background-image"> <img src="images/pink_background.png" alt=""> </div>
+    
     <!-- top of webpage -->
-    <header class="header">
-        <!-- background -->
-        <img src="images/header_color.png" class="header-background" alt="">
-        
-        <h1>Timey: Bear Study Clock</h1>
-
-        <p>This is Beta V1</p>
-
-        
-
-
-
-
-
-    </header>
+    <h1>Timey: Bear Study Clock</h1>
 
     <!-- bear -->
-     <div class="bear">
+    <div class="bear">
         <img src="images/bear_mascot.png" alt="">
+    </div>
+
+    <!-- questions -->
+     <div class="question_box">
+        <img src="images/question_box.png" alt="">
+        
+        <p>Hello!</p>
+            
+        <p>How many minutes would you like <br> to study for?
+        <input type="number" id="totalTime" required></p>
+
+        <p>And your <span color=#894343"> pomodoro</span> split?</p>
+  
     </div>
 
 
