@@ -1,0 +1,30 @@
+body {
+   font-family: 'Jockey One', sans-serif;
+   color:#FFFFFF;
+   margin: 0;
+   padding: 0;
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.header-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.bear {
+    position: absolute;
+    width: 535px;
+    left:436px;
+    top: 229px;
+    z-index: 3;
+}
