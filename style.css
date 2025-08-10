@@ -5,6 +5,10 @@ body {
    padding: 0;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 
 h1 { 
   font-family: 'Jockey One', sans-serif; 
@@ -170,6 +174,59 @@ h1:hover {
     top: 715px;
     z-index: 900;
 }
+
+h2 {
+  font-family: 'Jockey One', sans-serif; 
+  font-weight: 200;
+  color:#894343;  
+  font-size: 400%; 
+  position: absolute;
+  left: 300px;
+}
+
+.credit_box {
+  position: relative;
+  top: 200px;
+  left: 280px; 
+  max-width: 90vw; 
+  overflow-wrap: break-word; 
+}
+
+.bear_tilt {
+    transform: rotate(-4.96deg);
+    position: absolute;
+    top: 40px;
+    left: 40px;
+}
+
+.bear_tilt img{
+    width: 213.36px;
+}
+
+.credit_box p {
+  z-index: 999;
+  font-weight: 70; 
+  margin: 10px 10px;
+  color: #DAA2A2;
+  font-size: 215%;
+  padding: 20px 20px;
+  position: relative;
+}
+
+
+.credit_box img{
+    z-index: 1;
+    position: absolute;
+}
+
+.back {
+    position: absolute;
+    left: 1175px;
+    top: 750px;
+    z-index: 900;
+}
+
+
 
 
 
