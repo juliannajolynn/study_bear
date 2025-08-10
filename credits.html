@@ -54,15 +54,25 @@
 
     </div>
 
-    <div class="back">
-        <img id="back" src="images/back.png" style="cursor:pointer;">
+    <div class="back" id="back">
+        <img src="images/back_button.png" style="cursor:pointer;">
+        <p> back </p>
     </div>
 
 
     
 
 
+<script> 
+document.addEventListener("DOMContentLoaded", () => {
+    const back = document.getElementById('back');
 
+    back.addEventListener("click", function () {
+    window.location.href = "main.html";
+  });
+
+});
+</script>
 </body>
 
 </html>
