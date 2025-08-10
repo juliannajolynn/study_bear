@@ -55,12 +55,45 @@ h1:hover {
 }
 
 
-.question_box input#totalTime {
-  width: 100px;
-  height: 20px;
-  padding: 8px 12px;
+.question_box select#times_total {
+  position: absolute;
+  left: 190px;
+  top: 150px;
+  padding: 10px 8px;
   border: 1px solid #000000;
   border-radius: 10px; 
   outline: none;
   box-shadow: 3px 4px 4px rgba(0, 0, 0, .25);
 }
+
+.tooltip img{
+    position: relative;
+    width: 16px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  z-index: 999;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    opacity: 0;
+    width: 120px;
+    background-color: #FEEEEF;
+    color: #894343;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    top: -5px;
+    left: 105%;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+

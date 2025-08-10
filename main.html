@@ -41,10 +41,22 @@
         
         <p>Hello!</p>
             
-        <p>How many minutes would you like <br> to study for?
-        <input type="number" id="totalTime" required></p>
+        <p>How many minutes would you like <br> to study for?</p>
+       
+        <select name="times_total" id="times_total">
+            <option value="30">30</option>
+            <option value="60">60</option>
+            <option value="90">90</option>
+            <option value="120">120</option>
+        </select>
+        <!-- EDIT TO LET PEOPLE TYPE A NUMBER THATS DIVISABLE BY 30 IF NOT, ERROR -->
 
-        <p>And your <span color=#894343"> pomodoro</span> split?</p>
+       <div class="tooltip">
+        <img src="images/info.png" alt="Info">
+        <div class="tooltiptext">More options coming soon!</div>
+       </div>
+
+        <p>And your <span style="color:#894343;"> pomodoro</span> split?</p>
   
     </div>
 
@@ -54,5 +66,7 @@
 
 </body>
 
-<!-- anything within this tag is to be interpreted as html -->
+<!--  <input type="number" id="totalTime" required></p> -->
 </html>
+
+<!-- add to list of integers kept in java  -->
