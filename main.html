@@ -16,7 +16,6 @@
 
     <!-- (link to wedpage's stylesheet and js) -->
     <link rel="stylesheet" href="./style.css">
-    <script src="myscripts.js"></script>
 
 </head>
 
@@ -43,7 +42,7 @@
             
         <p>How many minutes would you like <br> to study for?</p>
        
-        <select name="times_total" id="times_total">
+        <select name="times_total" id="times_total" style="cursor:pointer;">
             <option value="30">30</option>
             <option value="60">60</option>
             <option value="90">90</option>
@@ -56,14 +55,38 @@
         <div class="tooltiptext">More options coming soon!</div>
        </div>
 
-        <p>And your <span style="color:#894343;"> pomodoro</span> split?</p>
-  
+       <p>And your <span style="color:#894343;"> pomodoro</span> split? </p>
+
+       <div class="pomodoro">
+        <div class="tooltip2"> 
+            <img src="images/info.png" alt="Info">
+            <div class="tooltiptext2">time spent studying per break length</div> 
+        </div>
+       </div>
+
+       <select name="pomo_split" id="pomo_split" style="cursor:pointer;">
+            <option value="25/5">25/5</option>
+            <option value="50/10">50/10</option>
+        </select>
+
+        <p>Would you like 10 minutes of prep <br> time before we begin?</p>
+
+        <div class="check">
+            <img id="check" src="images/check.png" alt="Check" style="cursor:pointer;">
+        </div>
+        <div class="x">
+            <img id="xmark" src="images/x.png" alt="X" style="cursor:pointer;">
+        </div>
+    </div>
+
+    <div class="submit">
+        <img id="submit" src="images/submit.png" style="cursor:pointer;">
     </div>
 
 
 
 
-
+<script src="myscripts.js"></script>
 </body>
 
 <!--  <input type="number" id="totalTime" required></p> -->

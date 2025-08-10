@@ -12,6 +12,7 @@ h1 {
   color:#DAA2A2;  
   text-align: center;
   font-size: 400%; 
+  cursor: pointer;
 }
 
 /* To change color of text when hovered over */
@@ -30,14 +31,14 @@ h1:hover {
 .bear {
     position: absolute;
     left: 769px;
-    top: 229px;
+    top: 195px;
     z-index: 3;
 }
 
 .question_box {
     position: relative;
     left: 197px;
-    top: 30px;
+    top: 0px;
     z-index: 2;
 }
 
@@ -66,13 +67,17 @@ h1:hover {
   box-shadow: 3px 4px 4px rgba(0, 0, 0, .25);
 }
 
-.tooltip img{
+.question_box .tooltip img{
     position: relative;
-    width: 16px;
+    margin-left: 20px;  
+    margin-top: 10px;
+    width: 14px;
 }
 
-.tooltip {
-  position: relative;
+.question_box .tooltip {
+  position: absolute;
+  top: 135px; 
+  left: 235px;
   display: inline-block;
   z-index: 999;
 }
@@ -82,7 +87,7 @@ h1:hover {
     opacity: 0;
     width: 120px;
     background-color: #FEEEEF;
-    color: #894343;
+    color: #AB6666;
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;
@@ -96,4 +101,75 @@ h1:hover {
   visibility: visible;
   opacity: 1;
 }
+
+/* 2nd tip */
+.pomodoro .tooltip2 {
+  position: absolute;
+  top: 215px; 
+  left: 415px;
+  display: inline-block;
+  z-index: 999;
+}
+
+.tooltip2 .tooltiptext2 {
+    visibility: hidden;
+    opacity: 0;
+    width: 120px;
+    background-color: #FEEEEF;
+    color: #AB6666;
+    text-align: center;
+    padding: 5px 15px;
+    border-radius: 6px;
+    top: -5px;
+    left: 105%;
+    position: absolute;
+    z-index: 1;
+}
+
+.pomodoro .tooltip2 img{
+    position: relative;
+    margin-left: 20px;  
+    margin-top: 10px;
+    width: 14px;
+}
+
+.pomodoro:hover .tooltiptext2 {
+  visibility: visible;
+  opacity: 1;
+}
+
+.question_box select#pomo_split {
+  position: absolute;
+  left: 360px;
+  top: 235px;
+  padding: 10px 8px;
+  border: 1px solid #000000;
+  border-radius: 10px; 
+  outline: none;
+  box-shadow: 3px 4px 4px rgba(0, 0, 0, .25);
+}
+
+.check {
+    position: relative;
+    left: 20px;
+}
+
+.x {
+    position: relative;
+    left: 90px;
+}
+
+.outlined {
+  outline: 3px solid #DAA2A2; 
+  outline-offset: 4px;
+}
+
+.submit {
+    position: absolute;
+    left: 547px;
+    top: 715px;
+    z-index: 900;
+}
+
+
 
