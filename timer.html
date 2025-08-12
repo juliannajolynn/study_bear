@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- holds the metadata that helps the browser understand how to read the document. -->
+<head>
+
+    <!-- setting font -->
+    <link href="https://fonts.googleapis.com/css?family=Jockey+One" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- (title for webpage on browser goes here) -->
+    <title>Timey Bear: Study Clock</title>
+
+    <!-- (link to wedpage's stylesheet and js) -->
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+
+<!-- contains all Website content -->
+<body>
+
+    <!-- background -->
+     <div class="background-image"> <img src="images/blue_background.png" alt=""> </div>
+
+    <!-- bear -->
+    <div class="bear_timer">
+        <img src="images/bear_mascot.png" alt="">
+    </div>
+
+    <div class="back_timer" id="back">
+        <img src="images/back_button.png" style="cursor:pointer;">
+        <p> back </p>
+    </div>
+
+    <div class="break_text">
+        
+    </div>
+
+    <div class="timer_box" id="timer_box">
+        <img src="images/timer_box.png">
+
+        <div class="base-timer">
+        <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g class="base-timer__circle">
+                <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
+            </g>
+         </svg>
+         <span>
+            <!-- Remaining time label -->
+            </span>
+        </div>
+
+
+    </div>
+
+    <div class="time_box" id="time_box">
+        <img src="images/time_box.png">
+        <p> total time remaining </p>
+    </div>
+
+
+
+
+
+
+
+    <script src="timer.js"></script>
+</body>
+
+<!--  <input type="number" id="totalTime" required></p> -->
+</html>

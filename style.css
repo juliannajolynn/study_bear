@@ -272,5 +272,88 @@ h2 {
     color: #894343;
 }
 
+.bear_timer {
+    transform: rotate(-12.43deg);
+    position: absolute;
+    top: 140px;
+    left: 90px;
+}
 
+.bear_timer img{
+  width: 535px;
+}
 
+.back_timer {
+    position: absolute;
+    left: 1350px;
+    top: 760px;
+    z-index: 900;
+    display: flex;             
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 50px;  
+}
+
+.back_timer img{
+    position: absolute;
+    width: 135px;
+}
+
+.back_timer p{
+    cursor: pointer;
+    position: relative;
+    color: white;
+    z-index: 1;  
+    margin: 0;
+    font-size: 35px;
+    margin-top: -7px;
+}
+
+.back_timer p:hover{
+    color: #894343;
+}
+
+.time_box{
+  position: absolute;
+  left: 750px;
+  top: 600px;
+}
+
+.time_box p{
+  color: #894343;
+  position: relative;
+  margin-top: -5px;
+  margin-left: 5px;
+  font-size: 110%;
+}
+
+.timer_box{
+  position: relative;/* makes it the reference for absolute children */
+  left: 750px;
+  top: 150px;
+  z-index: 7;
+  display: inline-block;
+}
+
+.base-timer {
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* perfect centering */
+  height: 300px;
+  width: 300px;
+}
+
+/* Removes SVG styling that would hide the time label */
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+/* The SVG path that displays the timer's progress */
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
