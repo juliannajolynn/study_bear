@@ -133,8 +133,6 @@ function fullTimer(duration) {
     }, 1000);
 }
 
-window.location.href = "timer.html";
-
 const COLOR_CODES = {
     info: {
         color: "green"
