@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   back.addEventListener("click", function () {
     alert("All progress lost!");
-    window.location.href = "main.html";
+    window.location.href = "index.html";
 });
 
 pauseButton.addEventListener('click', () => {
