@@ -47,15 +47,20 @@ document.addEventListener("DOMContentLoaded", () => {
     let pomoSplit = document.getElementById("pomo_split").value.split("/").map(num => parseInt(num, 10));
     let study_time = pomoSplit[0];
     let break_time = pomoSplit[1];
+    console.log("Times from localStorage:", study_time);
+    console.log("Times from localStorage:", break_time);
     times.length = 0;
 
     let i = 0;
 
     if (berkTime) {
-      times[0] = 10;
+      times[i] = 10;
       time += 10;
-      i++;
+    } else {
+      times[i] = 0;
     }
+    i++;
+
 
     while (time < total_time) {
       if (i % 2 == 1) {
@@ -79,11 +84,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         break;
       }
-      
+
       i++;
     } 
 
     localStorage.setItem('times', JSON.stringify(times));
+    localStorage.setItem('total_time', JSON.stringify(total_time));
 
     window.location.href = "timer.html";
   });

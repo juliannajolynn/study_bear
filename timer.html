@@ -31,13 +31,11 @@
         <img src="images/bear_mascot.png" alt="">
     </div>
 
+    <span id="top_text" class="top_text"> </span>
+
     <div class="back_timer" id="back">
         <img src="images/back_button.png" style="cursor:pointer;">
         <p> back </p>
-    </div>
-
-    <div class="break_text">
-        
     </div>
 
     <div class="timer_box" id="timer_box">
@@ -61,6 +59,23 @@
             </g>
          </svg>
          <span id="base-timer-label" class="base-timer__label"> </span>
+
+
+         <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+        </label>
+        </div>
+
+         <div class="button" id="button">
+            <div class="button_background" id="pause_button">
+                <img src="images/button_grey.png">
+                <img src="images/pause.png" id="pause">
+            </div>
+            <div class="button_background" id="play_button">
+                <img src="images/button_blue.png">
+                <img src="images/play.png" id="play">
+            </div> 
         </div>
 
         
@@ -71,7 +86,9 @@
     <div class="time_box" id="time_box">
         <img src="images/time_box.png">
         <p> total time remaining </p>
+        <span id="total-timer-label" class="total-timer__label"> </span>
     </div>
+
 
     
 
