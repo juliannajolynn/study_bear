@@ -35,7 +35,7 @@
 
     <div class="back_timer" id="back">
         <img src="images/back_button.png" style="cursor:pointer;">
-        <p> back </p>
+        <p> end </p>
     </div>
 
     <div class="timer_box" id="timer_box">
@@ -78,6 +78,14 @@
             </div> 
         </div>
 
+         <div id="modalSure" class="modalSure">
+         <div class="modalSure-content">
+            <p> <span style="color:#894343; font-size: 150%;">  Are you sure you wish to end? All progress will be lost. </span> <br>
+                press "c" to continue, "q" to quit.
+            </p>
+                
+        </div>
+
         
 
 
@@ -88,6 +96,8 @@
         <p> total time remaining </p>
         <span id="total-timer-label" class="total-timer__label"> </span>
     </div>
+
+    <audio id="ding" src="images/sound.mp3"></audio>
 
 
 </body>

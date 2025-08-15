@@ -42,17 +42,11 @@
             
         <p>How many minutes would you like <br> to study for?</p>
        
-        <select name="times_total" id="times_total" style="cursor:pointer;">
-            <option value="30">30</option>
-            <option value="60">60</option>
-            <option value="90">90</option>
-            <option value="120">120</option>
-        </select>
-        <!-- EDIT TO LET PEOPLE TYPE A NUMBER THATS DIVISABLE BY 30 IF NOT, ERROR -->
+        <input type="number" id="times_total" name="times_total" min="30" step="30" style="cursor:text;" value="30">
 
        <div class="tooltip">
         <img src="images/info.png" alt="Info">
-        <div class="tooltiptext">More options coming soon!</div>
+        <div class="tooltiptext"> including all breaks </div>
        </div>
 
        <p>And your <span style="color:#894343;"> pomodoro</span> split? </p>
@@ -83,9 +77,27 @@
         <img src="images/submit.png" style="cursor:pointer;">
         <p> submit </p>
     </div>
+     
+     <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+         <div class="modal-content">
+            <span class="close">&times;</span>
+            <p> <span style="color:#894343; font-size: 150%;">  Welcome to Beta V1.5 </span> <br>
+                <span style="color:#AB6666; font-size: 120%;">  Release Date: Thursday, August 14th <br>
+                    Log of new features: <br> </span> 
 
+                -- you can now input any total study time, try it! <br>
+                -- timer now continues even when you're not on the tab (oops) <br>
+                -- timer counts down on the tab top <br>
+                -- ending sounds! <br>
+                -- this pop up <br>
+                -- when you exit the timer, it'll now ask you if you're sure first <br>
+                -- when you refresh the page, your timers will no longer restart!
+            </p>
+        </div>
 
-
+</div>
 
 <script src="myscripts.js"></script>
 </body>

@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+  var modal = document.getElementById("modalSure");
+
   const times = JSON.parse(localStorage.getItem('times'));
   const total_time = JSON.parse(localStorage.getItem('total_time'));
   const back = document.getElementById('back');
@@ -6,10 +9,29 @@ document.addEventListener("DOMContentLoaded", () => {
   let isPaused = false;
   const pauseButton = document.getElementById('pause_button');
   const playButton = document.getElementById('play_button');
+
+  const ding = document.getElementById('ding');
   
   back.addEventListener("click", function () {
-    alert("All progress lost!");
-    window.location.href = "index.html";
+
+    isPaused = true;
+
+    modal.style.display = "block";
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "q") {
+            localStorage.removeItem("baseTimerEnd");
+            localStorage.removeItem("timerEnd");
+            window.location.href = "credits.html";
+        }
+        else if (event.key === "c") {
+            isPaused = false;
+            modal.style.display = "none";
+  }
+});
+
+
+
 });
 
 pauseButton.addEventListener('click', () => {
@@ -86,51 +108,71 @@ async function runTimers(times) {
     }
 }
 
+
 function startTimer(duration) {
     return new Promise((resolve) => {
-        timeLeft = duration;
+        
+        const storedEndTime = localStorage.getItem("baseTimerEnd");
+        const endTime = storedEndTime ? parseInt(storedEndTime) : Date.now() + duration * 1000;
+
+        // Store end time in localStorage 
+        localStorage.setItem("baseTimerEnd", endTime);
+
         // The time left label is updated
-        document.getElementById("base-timer-label").textContent = formatTimeLeft(timeLeft);
+        document.getElementById("base-timer-label").textContent = formatTimeLeft(Math.ceil(timeLeft));
         setCircleDasharray();
         
         timerInterval = setInterval(() => {
             // The amount of time passed increments by one
 
             if (!isPaused) {
-                timePassed = timePassed += 1;
-                timeLeft = TIME_LIMIT - timePassed;
+                const now = Date.now();
+                timeLeft = Math.max(0, endTime - now) / 1000;
 
-                document.getElementById("base-timer-label").textContent = formatTimeLeft(timeLeft);
+                document.getElementById("base-timer-label").textContent = formatTimeLeft(Math.ceil(timeLeft));
                 setCircleDasharray();
+
+                document.title = `Time left: ${formatTimeLeft(Math.ceil(timeLeft))}`;
                 
                 if (timeLeft <= 0) {
+
+                    ding.play().catch(e => console.log("Audio error:", e));
+                    localStorage.removeItem("baseTimerEnd");
                     clearInterval(timerInterval);
                     resolve();
                 }
             }
-        }, 1000);
+        }, 250);
     });
 }
 
 function fullTimer(duration) {
-    timeLeftTotal = duration;
+    const storedEndTime = localStorage.getItem("timerEnd");
+    const endTime = storedEndTime ? parseInt(storedEndTime) : Date.now() + duration * 1000;
+
+    //in case page reloads
+
+    localStorage.setItem("timerEnd", endTime);
     
     // The time left label is updated
     document.getElementById("total-timer-label").textContent = formatTimeLeft(duration);
         
     timerIntervalTotal = setInterval(() => {
         if (!isPaused) {
-            // The amount of time passed increments by one
-            timePassedTotal += 1;
-            timeLeftTotal = duration - timePassedTotal;
+            const now = Date.now();
+            const msLeft = Math.max(0, endTime - now);
+            timeLeftTotal = msLeft / 1000;
             
-            document.getElementById("total-timer-label").textContent = formatTimeLeft(timeLeftTotal);
-            if (timeLeftTotal <= 0) {
+            document.getElementById("total-timer-label").textContent = formatTimeLeft(Math.ceil(timeLeftTotal));
+
+            if (msLeft <= 0) {
+                ding.play().catch(e => console.log("Audio error:", e));
                 clearInterval(timerIntervalTotal);
-                window.location.href = "credit.html";
+                localStorage.removeItem("timerEnd");
+                window.location.href = "credits.html";
             }
         }
-    }, 1000);
+    }, 50);
 }
 
 const COLOR_CODES = {
