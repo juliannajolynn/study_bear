@@ -100,6 +100,12 @@ document.addEventListener("DOMContentLoaded", () => {
         for (let i = currentIndex; i < times.length; i++) {
             localStorage.setItem("currentPhaseIndex", i); // save index for reload purposes
 
+            // reset old phase values
+            localStorage.removeItem("phaseEndTime");
+            remainingBaseTime = undefined;
+            startingTime = Date.now();
+
+
             // text on top update
             if (i == 0) {
                 document.getElementById("top_text").innerHTML = 'until your <span style="color:#894343;"> study session </span>';   
@@ -122,6 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             document.getElementById("base-timer-label").textContent = formatTimeLeft(Math.ceil(timeLeft)); // set the base timer to how much time is left
             // to set the label
+
+            startingTime = Date.now();
 
             await startTimer(TIME_LIMIT); // start this phase's timer
 
@@ -299,16 +307,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
-
-
-/* Log of new features: <br> </span>
-7 per 5,, new .1 for every 1.4 new features 
-
-                -- timers are finally synced!! (ugh!) <br>
-                -- timer page now doesnt let your computer go to sleep <br>
-                -- error fixed where text wasn't consistent upon reload (coding stuff) <br>
-                -- timer starts paused and pauses upon reload <br>
-                -- now displays your study plan! next update will highlight which part of the plan ur on :)
-                */ 
-               
 
