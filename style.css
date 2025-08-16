@@ -500,11 +500,11 @@ input:checked + .slider:before {
 }
 
 #pause_button {
-  display: block; /* visible */
+  display: none;
 }
 
 #play_button {
-  display: none; /* hidden */
+  display: block;
 }
 
 /* The Modal (background) */
@@ -571,4 +571,12 @@ input:checked + .slider:before {
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.plan {
+  position: absolute;
+  top: 0px;
+  left: 5px;
+  font-size: 100%;
+  color: #918D8D;
 }
