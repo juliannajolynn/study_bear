@@ -48,8 +48,19 @@ document.addEventListener("DOMContentLoaded", () => {
     let timeLeftTotal; // for long timer
     let timerIntervalTotal; // for long timer
     let startingTime; // define it first
+
+    if (timerInterval) clearInterval(timerInterval);
+    if (timerIntervalTotal) clearInterval(timerIntervalTotal);
     
     // set initial values
+
+    // nuke old stuff
+    if (!localStorage.getItem("currentPhaseIndex")) {
+        localStorage.removeItem("phaseEndTime");
+        localStorage.removeItem("remainingBaseTime");
+        localStorage.removeItem("remainingTotalTime");
+        localStorage.removeItem("sessionEndTime");
+    }
 
     // allowing website to stay awake 
     
@@ -65,15 +76,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // timers
-    if (localStorage.getItem("remainingBaseTime")) {
-        remainingBaseTime = parseInt(localStorage.getItem("remainingBaseTime"));
+    const now = Date.now();
+    const storedPhaseEnd = parseInt(localStorage.getItem("phaseEndTime"));
+    const storedSessionEnd = parseInt(localStorage.getItem("sessionEndTime"));
+    
+    // restore timers only if they haven’t expired
+    if (storedPhaseEnd && storedPhaseEnd > now) {
+    remainingBaseTime = Math.ceil((storedPhaseEnd - now) / 1000);
         isPaused = true;
     }
     
-    if (localStorage.getItem("remainingTotalTime")) {
-        remainingTotalTime = parseInt(localStorage.getItem("remainingTotalTime"));
+    if (storedSessionEnd && storedSessionEnd > now) {
+        remainingTotalTime = Math.ceil((storedSessionEnd - now) / 1000);
         isPaused = true;
     }
+
 
     playButton.addEventListener('click', () => {
         isPaused = false; 
@@ -82,7 +99,11 @@ document.addEventListener("DOMContentLoaded", () => {
     
         if (!timersStarted) {
             timersStarted = true; // start them
-            startingTime = Date.now() // start both timers at the same saved time
+            if (!startingTime) startingTime = Date.now();
+            if (!localStorage.getItem("sessionEndTime")) {
+                const sessionEndTime = startingTime + total_time * 60 * 1000;
+                localStorage.setItem("sessionEndTime", sessionEndTime);
+            }
             startAllTimers();
         }
     });
@@ -100,11 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
         for (let i = currentIndex; i < times.length; i++) {
             localStorage.setItem("currentPhaseIndex", i); // save index for reload purposes
 
-            // reset old phase values
-            localStorage.removeItem("phaseEndTime");
-            remainingBaseTime = undefined;
-            startingTime = Date.now();
-
 
             // text on top update
             if (i == 0) {
@@ -116,22 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             // text on top update
             
-            TIME_LIMIT = times[i] * 60; // the time limit for this timer is the first # * 60 to make it minutes
-
-            // to set the label
-            const storedPhaseEnd = localStorage.getItem("phaseEndTime"); // get a saved phase end
-            if (storedPhaseEnd) { // if we have one
-                timeLeft = Math.max(0, parseInt(storedPhaseEnd) - Date.now()) / 1000; // time left is stored end - what time it is now
-            } else {
-                timeLeft = TIME_LIMIT; // if its not saved we start from the beginning
-            }
-
-            document.getElementById("base-timer-label").textContent = formatTimeLeft(Math.ceil(timeLeft)); // set the base timer to how much time is left
-            // to set the label
-
+            TIME_LIMIT = times[i] * 60;
             startingTime = Date.now();
 
-            await startTimer(TIME_LIMIT); // start this phase's timer
+            await startTimer(TIME_LIMIT);
 
             ding.play().catch(e => console.log("Audio error:", e)); // sound once done
         }
@@ -142,30 +146,30 @@ document.addEventListener("DOMContentLoaded", () => {
         // duration parameter so its based off of which phase we are on
         
         return new Promise((resolve) => {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
             // for waiting purposes
 
             let endTime; // we are going to calculate the end time of the phase timer
             const storedPhaseEnd = localStorage.getItem("phaseEndTime"); // grab it if this is a reload
             
-            if (storedPhaseEnd) { // if we have one already
+            if (storedPhaseEnd && !remainingBaseTime) { // if we have one already
                 endTime = parseInt(storedPhaseEnd);  // convert from string to number
+            } else if (remainingBaseTime) {
+                endTime = Date.now() + remainingBaseTime * 1000;
+                localStorage.setItem("phaseEndTime", endTime);
+                remainingBaseTime = undefined;
             } else {
                 // Otherwise, calculate a new end time based on the starting time and duration
                 endTime = startingTime + duration * 1000; // duration is in seconds, convert to milliseconds
+                localStorage.setItem("phaseEndTime", endTime);
             }
-
-            localStorage.setItem("phaseEndTime", endTime); // keep this end time for the whole phase
-            
+                        
             setCircleDasharray(); // start circle animation
             
             timerInterval = setInterval(() => {
                 if (!isPaused) { // make sure we arent paused
-                    if (remainingBaseTime !== undefined) {
-                        // Adjust endTime based on frozen remaining time
-                        endTime = Date.now() + remainingBaseTime * 1000;
-                        remainingBaseTime = undefined; // reset after resume
-                        localStorage.removeItem("remainingBaseTime"); 
-                    }
 
                     timeLeft = Math.max(0, endTime - Date.now()) / 1000; //calculate time left for circle
 
@@ -180,9 +184,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 if (timeLeft <= 0) { // if its 0 then its over
+                    clearInterval(timerInterval); // new interval
                     localStorage.removeItem("phaseEndTime"); // moving onto next phase
                     localStorage.removeItem("remainingBaseTime");
-                    clearInterval(timerInterval); // new interval
                     resolve(); // awaiting over
                 }
             
@@ -191,20 +195,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     function fullTimer(duration) {
-        if (!localStorage.getItem("sessionEndTime")) {
-            const sessionEndTime = startingTime + total_time * 60 * 1000; // calculating end time with same beginning time
-            localStorage.setItem("sessionEndTime", sessionEndTime);
+        if (timerIntervalTotal) {
+            clearInterval(timerIntervalTotal);
         }
 
-        let endTime = parseInt(localStorage.getItem("sessionEndTime")); // grab from storage
+        let endTime;
+
+        if (remainingTotalTime) { // Resume from paused remaining time
+            endTime = Date.now() + remainingTotalTime * 1000;
+            localStorage.setItem("sessionEndTime", endTime);
+            remainingTotalTime = undefined; // clear after using
+        } else if (localStorage.getItem("sessionEndTime")) {
+            // Use stored session end
+            endTime = parseInt(localStorage.getItem("sessionEndTime"));
+        } else {
+            // First start
+            endTime = Date.now() + duration * 1000;
+            localStorage.setItem("sessionEndTime", endTime);
+        }
         
         timerIntervalTotal = setInterval(() => {
             if (!isPaused) {
-                if (remainingTotalTime !== undefined) {
-                    endTime = Date.now() + remainingTotalTime * 1000;
-                    remainingTotalTime = undefined;
-                    localStorage.removeItem("remainingTotalTime");
-                }
 
                 timeLeftTotal = Math.max(0, endTime - Date.now()) / 1000; // calc
 
@@ -245,6 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 localStorage.removeItem("remainingTotalTime");
                 localStorage.removeItem("sessionEndTime"); 
                 localStorage.removeItem("currentPhaseIndex");
+                localStorage.removeItem("phaseEndTime");
                 window.location.href = "credits.html";
             } else if (event.key === "c") {
                 isPaused = false;
