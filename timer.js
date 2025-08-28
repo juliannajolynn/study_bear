@@ -14,7 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // get user info
     const times = JSON.parse(localStorage.getItem('times'));
     const total_time = JSON.parse(localStorage.getItem('total_time'));
+    console.log("Times from localStorage:", times);
+    console.log("Total time from localStorage:", total_time);
+    // get user info
 
+
+    // create study plan 
     let studyPlan = "Your calculated study plan: <br>";
 
     for (let i = 0; i < times.length; i++) {
@@ -26,16 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
             studyPlan += String(times[i]) + " minutes break <br>"
         }
     }
+    // create study plan 
 
-    document.getElementById("plan").innerHTML = studyPlan;
+    document.getElementById("plan").innerHTML = studyPlan; // display study plan
 
-    console.log("Times from localStorage:", times);
-    console.log("Total time from localStorage:", total_time);
-    // get user info
     
     // set initial values
-    let remainingBaseTime;  // for the base/phase timer
-    let remainingTotalTime; // for the full/session timer
+    // reloads 
+    let remainingBaseTime;  // this is to keep track of base timer on reload
+    let remainingTotalTime; // this is to keep track of full timer on reload
 
     let isPaused = true;
     let timersStarted = false;
@@ -154,15 +158,14 @@ document.addEventListener("DOMContentLoaded", () => {
             let endTime; // we are going to calculate the end time of the phase timer
             const storedPhaseEnd = localStorage.getItem("phaseEndTime"); // grab it if this is a reload
             
-            if (storedPhaseEnd && !remainingBaseTime) { // if we have one already
-                endTime = parseInt(storedPhaseEnd);  // convert from string to number
+            if (storedPhaseEnd) {
+                endTime = parseInt(storedPhaseEnd);
             } else if (remainingBaseTime) {
                 endTime = Date.now() + remainingBaseTime * 1000;
                 localStorage.setItem("phaseEndTime", endTime);
                 remainingBaseTime = undefined;
             } else {
-                // Otherwise, calculate a new end time based on the starting time and duration
-                endTime = startingTime + duration * 1000; // duration is in seconds, convert to milliseconds
+                endTime = Date.now() + duration * 1000; // safer than using startingTime
                 localStorage.setItem("phaseEndTime", endTime);
             }
                         
