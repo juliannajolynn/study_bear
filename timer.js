@@ -51,20 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let timeLeftTotal; // for long timer
     let timerIntervalTotal; // for long timer
-    let startingTime; // define it first
+    let resume;
+    let endTimeTotal;
 
     if (timerInterval) clearInterval(timerInterval);
     if (timerIntervalTotal) clearInterval(timerIntervalTotal);
     
     // set initial values
 
-    // nuke old stuff
-    if (!localStorage.getItem("currentPhaseIndex")) {
-        localStorage.removeItem("phaseEndTime");
-        localStorage.removeItem("remainingBaseTime");
-        localStorage.removeItem("remainingTotalTime");
-        localStorage.removeItem("sessionEndTime");
-    }
 
     // allowing website to stay awake 
     
@@ -79,37 +73,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // set timer displays
 
 
-    // timers
-    const now = Date.now();
-    const storedPhaseEnd = parseInt(localStorage.getItem("phaseEndTime"));
-    const storedSessionEnd = parseInt(localStorage.getItem("sessionEndTime"));
-    
-    // restore timers only if they haven’t expired
-    if (storedPhaseEnd && storedPhaseEnd > now) {
-    remainingBaseTime = Math.ceil((storedPhaseEnd - now) / 1000);
-        isPaused = true;
-    }
-    
-    if (storedSessionEnd && storedSessionEnd > now) {
-        remainingTotalTime = Math.ceil((storedSessionEnd - now) / 1000);
-        isPaused = true;
-    }
-
-
     playButton.addEventListener('click', () => {
+        
         isPaused = false; 
         playButton.style.display = 'none'; 
         pauseButton.style.display = 'block';
     
         if (!timersStarted) {
             timersStarted = true; // start them
-            if (!startingTime) startingTime = Date.now();
-            if (!localStorage.getItem("sessionEndTime")) {
-                const sessionEndTime = startingTime + total_time * 60 * 1000;
-                localStorage.setItem("sessionEndTime", sessionEndTime);
-            }
             startAllTimers();
-        }
+        } else {
+            resume = Date.now();
+            endTimeTotal = resume + remainingTotalTime * 1000;
+
+    }
     });
 
     function startAllTimers() {
@@ -120,11 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function runTimers(times) {
         // this function runs sequential timers based off of user input 
 
-        let currentIndex = parseInt(localStorage.getItem("currentPhaseIndex")) || 0; // if an index is saved, use it
-
-        for (let i = currentIndex; i < times.length; i++) {
-            localStorage.setItem("currentPhaseIndex", i); // save index for reload purposes
-
+        for (let i = 0; i < times.length; i++) {
 
             // text on top update
             if (i == 0) {
@@ -135,15 +108,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("top_text").innerHTML = 'until your break is <span style="color:#894343;"> over </span>';
             }
             // text on top update
+
+            if (times[i] > 0) {
+                TIME_LIMIT = times[i] * 60;
+                await startTimer(TIME_LIMIT);
+            }
             
-            TIME_LIMIT = times[i] * 60;
-            startingTime = Date.now();
-
-            await startTimer(TIME_LIMIT);
-
-            ding.play().catch(e => console.log("Audio error:", e)); // sound once done
+            
         }
-        localStorage.removeItem("currentPhaseIndex"); // we are no longer on that phase
     }
     
     function startTimer(duration) {
@@ -155,25 +127,22 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             // for waiting purposes
 
-            let endTime; // we are going to calculate the end time of the phase timer
-            const storedPhaseEnd = localStorage.getItem("phaseEndTime"); // grab it if this is a reload
-            
-            if (storedPhaseEnd) {
-                endTime = parseInt(storedPhaseEnd);
-            } else if (remainingBaseTime) {
+            let endTime;
+            // we are going to calculate the end time of the phase timer
+        
+            if (remainingBaseTime != null) { // if there is a remaining timer
                 endTime = Date.now() + remainingBaseTime * 1000;
-                localStorage.setItem("phaseEndTime", endTime);
                 remainingBaseTime = undefined;
             } else {
-                endTime = Date.now() + duration * 1000; // safer than using startingTime
-                localStorage.setItem("phaseEndTime", endTime);
+                // staring a new timer
+                endTime = Date.now() + duration * 1000;
             }
                         
             setCircleDasharray(); // start circle animation
             
             timerInterval = setInterval(() => {
-                if (!isPaused) { // make sure we arent paused
 
+                if (!isPaused) { // make sure we arent paused
                     timeLeft = Math.max(0, endTime - Date.now()) / 1000; //calculate time left for circle
 
                     setCircleDasharray();
@@ -182,59 +151,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     document.title = `Time left: ${formatTimeLeft(Math.ceil(timeLeft))}`     
                 } else {
-                    remainingBaseTime = timeLeft;
-                    localStorage.setItem("remainingBaseTime", Math.ceil(remainingBaseTime));
+                    if (resume) {
+                        endTime = resume + timeLeft * 1000;
+                        resume = undefined;
+                    } else {
+                        endTime = Date.now() + timeLeft * 1000;
+                    }
                 }
 
                 if (timeLeft <= 0) { // if its 0 then its over
                     clearInterval(timerInterval); // new interval
-                    localStorage.removeItem("phaseEndTime"); // moving onto next phase
-                    localStorage.removeItem("remainingBaseTime");
                     resolve(); // awaiting over
                 }
             
             }, 500); // update every half a second 
         });
     }
+
     
     function fullTimer(duration) {
         if (timerIntervalTotal) {
             clearInterval(timerIntervalTotal);
         }
 
-        let endTime;
-
-        if (remainingTotalTime) { // Resume from paused remaining time
-            endTime = Date.now() + remainingTotalTime * 1000;
-            localStorage.setItem("sessionEndTime", endTime);
-            remainingTotalTime = undefined; // clear after using
-        } else if (localStorage.getItem("sessionEndTime")) {
-            // Use stored session end
-            endTime = parseInt(localStorage.getItem("sessionEndTime"));
+        if (remainingTotalTime) {
+            // resuming after pause
+            endTimeTotal = Date.now() + duration * 1000;
+            remainingTotalTime = undefined;
         } else {
-            // First start
-            endTime = Date.now() + duration * 1000;
-            localStorage.setItem("sessionEndTime", endTime);
+            // fresh start
+            endTimeTotal = Date.now() + duration * 1000;
         }
         
         timerIntervalTotal = setInterval(() => {
             if (!isPaused) {
 
-                timeLeftTotal = Math.max(0, endTime - Date.now()) / 1000; // calc
+                timeLeftTotal = Math.max(0, endTimeTotal - Date.now()) / 1000; // calc
 
                 document.getElementById("total-timer-label").textContent = formatTimeLeft(Math.ceil(timeLeftTotal)); // display
 
                 if (timeLeftTotal <= 0) {
                     clearInterval(timerIntervalTotal); // clear
-                    localStorage.removeItem("remainingBaseTime");
-                    localStorage.removeItem("remainingTotalTime");
-                    localStorage.removeItem("sessionEndTime"); 
-                    localStorage.removeItem("currentPhaseIndex");
                     window.location.href = "credits.html";
                 }
             } else {
-                remainingTotalTime = timeLeftTotal;
-                localStorage.setItem("remainingTotalTime", Math.ceil(remainingTotalTime));
+                //
             }
         }, 500); // updates every half a second
     }
@@ -255,11 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
         document.addEventListener("keydown", (event) => {
             if (event.key === "q") {
-                localStorage.removeItem("remainingBaseTime");
-                localStorage.removeItem("remainingTotalTime");
-                localStorage.removeItem("sessionEndTime"); 
-                localStorage.removeItem("currentPhaseIndex");
-                localStorage.removeItem("phaseEndTime");
                 window.location.href = "credits.html";
             } else if (event.key === "c") {
                 isPaused = false;
@@ -270,6 +226,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     pauseButton.addEventListener('click', () => {
         isPaused = true; 
+
+        remainingTotalTime = timeLeftTotal;
+        remainingBaseTime = timeLeft;
         
         pauseButton.style.display = 'none';
         playButton.style.display = 'block';
