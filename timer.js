@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (times[i] > 0) {
                 TIME_LIMIT = times[i] * 60;
                 await startTimer(TIME_LIMIT);
+                ding.play().catch(e => console.log("Audio error:", e)); // sound once done
             }
             
             
