@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const check = document.getElementById('check');
   const xmark = document.getElementById('xmark');
-  const main_title = document.getElementById('main_title');
 
   function selectImage(selected, other) {
     selected.classList.add('outlined');
@@ -23,10 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   xmark.addEventListener('click', () => {
     selectImage(xmark, check);
     berkTime = false;
-  });
-
-  main_title.addEventListener("click", function () {
-    window.location.href = "credits.html";
   });
 
   // timer stuff
