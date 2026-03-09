@@ -390,6 +390,14 @@ input:checked + .slider:before {
 }
 
 /* NEWWWW */
+.conversion {
+  position: absolute;
+  left: 18vw;
+  top: 19vh;
+  font-size: 80%;
+  color: #AB6666;
+}
+
 .update {
   position: relative;
   z-index: 999;

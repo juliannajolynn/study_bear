@@ -24,6 +24,21 @@ document.addEventListener("DOMContentLoaded", () => {
     berkTime = false;
   });
 
+  const conversion = document.getElementById('conversion');
+
+  times_total.addEventListener('input', () => {
+    const minutes = parseInt(times_total.value);
+    if (!isNaN(minutes)) {
+      const hours = Math.floor(minutes / 60);
+      const remainingMinutes = minutes % 60;
+      conversion.textContent = `(${hours} hr ${remainingMinutes} min)`;
+    } else {
+      conversion.textContent = '';
+    }
+  });
+
+
+
   // timer stuff
   const submit = document.getElementById('submit');
   const times = [];
