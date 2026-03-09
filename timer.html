@@ -5,7 +5,9 @@
 <head>
 
     <!-- setting font -->
-    <link href="https://fonts.googleapis.com/css?family=Jockey+One" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Esteban&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,27 +25,40 @@
 <!-- contains all Website content -->
 <body>
 
-    <!-- background -->
-     <div class="background-image"> <img src="images/blue_background.png" alt=""> </div>
+    <!-- background will be in js NEED TO DO-->
 
-    <!-- bear -->
-    <div class="bear_timer">
-        <img src="images/bear_mascot.png" alt="">
+    <!-- bear and elements-->
+    <div class="bear">
+        <img src="images/bear_reading.gif" alt="oh no! something is broken!">
     </div>
 
-    <span id="top_text" class="top_text"> </span>
-
-    <span id="plan" class="plan"> </span>
-
-    <div class="back_timer" id="back">
-        <img src="images/back_button.png" style="cursor:pointer;">
-        <p> end </p>
+    <div class="notepad-wrapper">
+        <div class="notepad">
+            <img src="images/notepad.png">
+            <span id="plan" class="plan"></span>
+        </div>
     </div>
+
+    <div class="book_cover">
+        <img src="images/yellow_book.png" alt="oh no! something is broken!">
+    </div>
+
+    <div class="book_gif">
+        <img src="images/book_turning.gif" alt="oh no! something is broken!">
+    </div>
+
+
+    <!-- <span id="top_text" class="top_text"> </span> GET RID OF IN CSS-->
+
+    <div class="back" id="back" style="cursor:pointer;"> <!-- UPDATE CSS, js --> 
+        <img src="images/y_x.png" alt="oh no! something is broken!">
+    </div>
+
 
     <div class="timer_box" id="timer_box">
-        <img src="images/timer_box.png">
 
         <div class="base-timer">
+
         <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <g class="base-timer__circle">
                 <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
@@ -62,22 +77,13 @@
          </svg>
          <span id="base-timer-label" class="base-timer__label"> </span>
 
-
-         <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-        </label>
         </div>
 
-         <div class="button" id="button">
-            <div class="button_background" id="pause_button">
-                <img src="images/button_grey.png">
-                <img src="images/pause.png" id="pause">
-            </div>
-            <div class="button_background" id="play_button">
-                <img src="images/button_blue.png">
-                <img src="images/play.png" id="play">
-            </div> 
+        <div id="play_button" style="cursor:pointer;">
+            <img src="images/y_play.png">
+        </div>
+        <div id="pause_button" style="cursor:pointer;">
+            <img src="images/y_pause.png">
         </div>
 
          <div id="modalSure" class="modalSure">
@@ -91,12 +97,6 @@
         
 
 
-    </div>
-
-    <div class="time_box" id="time_box">
-        <img src="images/time_box.png">
-        <p> total time remaining </p>
-        <span id="total-timer-label" class="total-timer__label"> </span>
     </div>
 
     <audio id="ding" src="images/sound.mp3"></audio>

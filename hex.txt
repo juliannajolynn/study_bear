@@ -1,0 +1,3 @@
+Pink: #bf8889
+Yellow: #ede8c8
+Green: #a5a581

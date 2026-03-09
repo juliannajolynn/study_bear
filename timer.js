@@ -7,8 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const pauseButton = document.getElementById('pause_button');
     const playButton = document.getElementById('play_button');
     const ding = document.getElementById('ding');
-    const toggle = document.querySelector('.switch input');
-    const timeBox = document.getElementById('time_box');
     // get html elements
     
     // get user info
@@ -20,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // create study plan 
-    let studyPlan = "Your calculated study plan: <br>";
+    let studyPlan = "<span style='font-weight: 900;'>Your calculated study plan:</span> <br>";
 
     for (let i = 0; i < times.length; i++) {
         if (i == 0) {
@@ -67,11 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
         requestWakeLock();
     }, { once: true });
 
-    if (toggle.checked) { timeBox.style.display = 'block'; } else { timeBox.style.display = 'none'; } // set time box invisible initially
-
-    document.getElementById("top_text").innerHTML = 'press the <span style="color:#894343;"> play </span> to start!';   
-    // set timer displays
-
 
     playButton.addEventListener('click', () => {
         
@@ -91,23 +84,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function startAllTimers() {
         runTimers(times);
-        fullTimer(total_time*60);
+
     }
     
     async function runTimers(times) {
         // this function runs sequential timers based off of user input 
 
         for (let i = 0; i < times.length; i++) {
-
-            // text on top update
-            if (i == 0) {
-                document.getElementById("top_text").innerHTML = 'until your <span style="color:#894343;"> study session </span>';   
-            } else if (i % 2 == 1) {
-                document.getElementById("top_text").innerHTML = 'until your next <span style="color:#894343;"> break </span>';
-            } else {
-                document.getElementById("top_text").innerHTML = 'until your break is <span style="color:#894343;"> over </span>';
-            }
-            // text on top update
 
             if (times[i] > 0) {
                 TIME_LIMIT = times[i] * 60;
@@ -203,21 +186,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //buttons
 
-    toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-            timeBox.style.display = 'block';
-        } else {
-            timeBox.style.display = 'none';
-        }
-    });
-
     back.addEventListener("click", function () {
         isPaused = true;
         modal.style.display = "block";
         
         document.addEventListener("keydown", (event) => {
             if (event.key === "q") {
-                window.location.href = "credits.html";
+                window.location.href = "index.html";
             } else if (event.key === "c") {
                 isPaused = false;
                 modal.style.display = "none";
