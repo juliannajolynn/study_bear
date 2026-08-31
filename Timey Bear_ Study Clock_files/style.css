@@ -1,0 +1,516 @@
+body {
+   font-family: 'Jockey One', sans-serif;
+   color:#DAA2A2;
+   margin: 0;
+   padding: 0;
+   background-color:#ede8c8;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+
+h1 { 
+  position: relative;
+  margin-top: 20px;
+  font-family: 'Jockey One', sans-serif; 
+  font-weight: 200;
+  color:#DAA2A2;  
+  text-align: center;
+  font-size: 400%; 
+  cursor: pointer;
+}
+
+/* To change color of text when hovered over */
+h1:hover {
+    color:#AB6666; 
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+.question_box {
+    position: relative;
+    left: 197px;
+    margin-top: -20px;
+    z-index: 2;
+}
+
+.question_box img {
+  position: absolute;
+  z-index: -1;
+}
+
+.question_box p {
+  font-weight: 70; 
+  margin: 5px 0;
+  color: #DAA2A2;
+  font-size: 215%;
+  padding: 15px 20px;
+}
+
+
+.question_box input#times_total {
+  position: absolute;
+  left: 190px;
+  top: 150px;
+  padding: 10px 8px;
+  width: 45px;
+  border: 1px solid #000000;
+  border-radius: 10px; 
+  outline: none;
+  box-shadow: 3px 4px 4px rgba(0, 0, 0, .25);
+}
+
+.question_box .tooltip img{
+    position: relative;
+    margin-left: 20px;  
+    margin-top: 10px;
+    width: 14px;
+}
+
+.question_box .tooltip {
+  position: absolute;
+  top: 132px; 
+  left: 235px;
+  display: inline-block;
+  z-index: 999;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    opacity: 0;
+    width: 120px;
+    background-color: #FEEEEF;
+    color: #AB6666;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    top: -5px;
+    left: 105%;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* 2nd tip */
+.pomodoro .tooltip2 {
+  position: absolute;
+  top: 218px; 
+  left: 415px;
+  display: inline-block;
+  z-index: 999;
+}
+
+.tooltip2 .tooltiptext2 {
+    visibility: hidden;
+    opacity: 0;
+    width: 120px;
+    background-color: #FEEEEF;
+    color: #AB6666;
+    text-align: center;
+    padding: 5px 15px;
+    border-radius: 6px;
+    top: -5px;
+    left: 105%;
+    position: absolute;
+    z-index: 1;
+}
+
+.pomodoro .tooltip2 img{
+    position: relative;
+    margin-left: 20px;  
+    margin-top: 10px;
+    width: 14px;
+}
+
+.pomodoro:hover .tooltiptext2 {
+  visibility: visible;
+  opacity: 1;
+}
+
+.question_box select#pomo_split {
+  position: absolute;
+  left: 360px;
+  top: 235px;
+  padding: 10px 8px;
+  border: 1px solid #000000;
+  border-radius: 10px; 
+  outline: none;
+  box-shadow: 3px 4px 4px rgba(0, 0, 0, .25);
+}
+
+.check {
+    position: relative;
+    left: 20px;
+}
+
+.x {
+    position: relative;
+    left: 90px;
+}
+
+.outlined {
+  outline: 3px solid #DAA2A2; 
+  outline-offset: 4px;
+}
+
+h2 {
+  font-family: 'Jockey One', sans-serif; 
+  font-weight: 200;
+  color:#894343;  
+  font-size: 400%; 
+  position: absolute;
+  left: 300px;
+}
+
+.credit_box {
+  position: relative;
+  top: 200px;
+  left: 280px; 
+  max-width: 90vw; 
+  overflow-wrap: break-word; 
+}
+
+.bear_tilt {
+    transform: rotate(-4.96deg);
+    position: absolute;
+    top: 40px;
+    left: 40px;
+}
+
+.bear_tilt img{
+    width: 213.36px;
+}
+
+.credit_box p {
+  z-index: 999;
+  font-weight: 70; 
+  margin: 10px 10px;
+  color: #DAA2A2;
+  font-size: 215%;
+  padding: 20px 20px;
+  position: relative;
+}
+
+
+.credit_box img{
+    z-index: 1;
+    position: absolute;
+}
+
+.submit {
+    position: absolute;
+    left: 572px;
+    top: 680px;
+    z-index: 900;
+    display: flex;             
+    align-items: center;
+    justify-content: center;
+}
+
+.submit img{
+    position: absolute;
+}
+
+.submit p{
+    cursor: pointer;
+    position: relative;
+    color: white;
+    z-index: 1;  
+    margin: 0;
+    font-size: 35px;
+    margin-top: -10px;
+}
+
+.submit p:hover{
+    color: #894343;
+}
+
+.back_timer {
+    position: absolute;
+    left: 1350px;
+    top: 700px;
+    z-index: 900;
+    display: flex;             
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 50px;  
+}
+
+.back_timer img{
+    position: absolute;
+    width: 135px;
+}
+
+.back_timer p{
+    cursor: pointer;
+    position: relative;
+    color: white;
+    z-index: 1;  
+    margin: 0;
+    font-size: 35px;
+    margin-top: -7px;
+}
+
+.back_timer p:hover{
+    color: #894343;
+}
+
+.time_box{
+  position: absolute;
+  left: 0px;
+  top: 450px;
+}
+
+.time_box p{
+  color: #894343;
+  position: relative;
+  margin-top: -5px;
+  margin-left: 11px;
+  font-size: 110%;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  top: -335px;
+  left: -75px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #9EAED7;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #9EAED7;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.top_text {
+  font-weight: 200;
+  font-size: 200%; 
+  position: absolute;
+  top: 93px;
+  left: 860px;
+  color: #AB6666;
+}
+
+.button {
+  cursor: pointer;
+  position: relative;
+  width: 50px;   
+  height: 50px;
+  left: 405px;
+  top: -90px;   
+}
+
+.button_background {
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The Modal (background) */
+.modalSure {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modalSure-content {
+  justify-content: center;
+  border-radius: 15px; 
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* NEWWWW */
+
+.back {
+    position: absolute;
+    top: 75vh;
+    left: 5vw;
+}
+
+#play_button, #pause_button {
+  position: absolute;
+  top: 75vh;
+  left: 27vw;
+}
+
+#pause_button {
+  display: none;
+}
+
+#play_button {
+  display: block;
+}
+
+.bear {
+  position: absolute;
+  left: -5vw;
+  top: -10vh;
+}
+
+.bear img {
+  width: 100vw;
+}
+
+.notepad {
+  position: absolute;
+  left: -5vw;
+  top: -15vh;
+}
+
+.notepad img {
+  width: 100vw;
+}
+
+.plan {
+  font-family: 'Esteban', serif;
+  position: absolute;
+  left: 81vw;
+  top: 41vh;
+  font-size: 1vw;
+  color: #7c5350;
+}
+
+.book_cover {
+  position: absolute;
+  left: -5vw;
+  top: -10vh;
+}
+
+.book_cover img {
+  width: 100vw;
+}
+
+.book_gif {
+  position: absolute;
+  left: -5vw;
+  top: -10vh;
+}
+
+.book_gif img {
+  width: 100vw;
+}
+
+.base-timer {
+  z-index: 10;
+  position: absolute;
+  left: 18vw;
+  top: 50%;
+  transform: translate(-50%, -50%); /* perfect centering */
+  height: 25vw;
+  width: 25vw;
+}
+
+.base-timer__label{
+  font-family: 'Esteban', serif;
+  position: absolute;
+  width: 300px;
+  color: #7c5350;
+  height: 300px;
+  top: 5vh;
+  left: 8vw;
+  display: flex;
+  align-items: center;
+  font-size: 60px;
+  z-index: 10;
+}
+
+/* Removes SVG styling that would hide the time label */
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+/* The SVG path that displays the timer's progress */
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: white;
+}
+
+.base-timer__path-remaining {
+  stroke-width: 7px;
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  stroke: currentColor;
+}
+
+.base-timer__svg {
+  transform: scaleX(-1);
+}
+

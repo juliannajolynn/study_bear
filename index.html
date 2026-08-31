@@ -1,93 +1,102 @@
-<!-- declares the document as type html -->
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- holds the metadata that helps the browser understand how to read the document. -->
 <head>
-
-    <!-- setting font -->
-    <link href="https://fonts.googleapis.com/css?family=Jockey+One" rel="stylesheet">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- (title for webpage on browser goes here) -->
+    <meta name="description" content="Timey: A cute study timer with the Pomodoro technique to help you focus and study effectively.">
+    
     <title>Timey Bear: Study Clock</title>
-
-    <!-- (link to wedpage's stylesheet and js) -->
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Jockey+One" rel="stylesheet">
+    
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="./style.css">
-
 </head>
 
-
-<!-- contains all Website content -->
 <body>
-
-    <!-- background -->
-     <div class="background-image"> <img src="images/pink_background.png" alt=""> </div>
-    
-    <!-- top of webpage -->
-    <h1 id="main_title">Timey: Bear Study Clock</h1>
-
-    <div class="update">
-        <p>Hi! This page is a work in progress... <br> but the timer page is fully functional (more features coming soon!) <br> with the new artstyle! </p>
+    <!-- Background -->
+    <div class="background-image">
+        <img src="images/pink_background.png" alt="Pink floral background">
     </div>
 
-    <!-- questions -->
-     <div class="question_box">
+    <!-- Header -->
+    <h1>Timey: Bear Study Clock</h1>
+
+    <!-- Status Message -->
+    <div class="update" role="status" aria-live="polite">
+        <p>Welcome! Set up your study session and Timey will guide you through it.</p>
+    </div>
+
+    <!-- Study Setup Form -->
+    <div class="question_box" role="region" aria-labelledby="main_title">
         <img src="images/question_box.png" alt="">
         
-        <p>Hello!</p>
-            
-        <p>How many minutes would you like <br> to study for?</p>
-       
-        <input type="number" id="times_total" name="times_total" min="30" step="30" style="cursor:text;" value="30">
-        <span id="conversion" class="conversion"> </span>
-
-       <div class="tooltip">
-        <img src="images/info.png" alt="Info">
-        <div class="tooltiptext"> including all breaks </div>
-       </div>
-
-       <p>And your <span style="color:#894343;"> pomodoro</span> split? </p>
-
-       <div class="pomodoro">
-        <div class="tooltip2"> 
+        <p>How many minutes would you like to study for?</p>
+        
+        <input 
+            type="number" 
+            id="times_total" 
+            class="form-control"
+            name="study_duration"
+            min="30" 
+            step="30" 
+            value="30"
+            aria-label="Study duration in minutes"
+            aria-describedby="time-help">
+        
+        <span id="conversion" class="conversion" aria-live="polite"></span>
+        
+        <!-- Time Info Tooltip -->
+        <div class="tooltip" aria-label="Help">
             <img src="images/info.png" alt="Info">
-            <div class="tooltiptext2">time spent studying per break length</div> 
+            <div class="tooltiptext">Including all breaks</div>
         </div>
-       </div>
 
-       <select name="pomo_split" id="pomo_split" style="cursor:pointer;">
-            <option value="20/5">20/5</option>
-            <option value="25/5">25/5</option>
-            <option value="45/15">45/15</option>
-            <option value="50/10">50/10</option>
+        <!-- Pomodoro Split Selection -->
+        <p>Choose your Pomodoro split:</p>
+        
+        <div class="pomodoro">
+            <div class="tooltip2" aria-label="Help">
+                <img src="images/info.png" alt="Info">
+                <div class="tooltiptext2">Focus time vs break time</div>
+            </div>
+        </div>
+
+        <select 
+            id="pomo_split" 
+            class="form-control"
+            name="pomodoro_split"
+            aria-label="Pomodoro split selection"
+            aria-describedby="pomo-help">
+            <option value="20/5">20 min focus / 5 min break</option>
+            <option value="25/5">25 min focus / 5 min break (Classic)</option>
+            <option value="45/15">45 min focus / 15 min break</option>
+            <option value="50/10">50 min focus / 10 min break</option>
         </select>
 
-        <p>Would you like 10 minutes of prep <br> time before we begin?</p>
+        <!-- Prep Time Selection -->
+        <p>Would you like 10 minutes of prep time before we begin?</p>
 
-        <div class="check">
-            <img id="check" src="images/check.png" alt="Check" style="cursor:pointer;">
-        </div>
-        <div class="x">
-            <img id="xmark" src="images/x.png" alt="X" style="cursor:pointer;">
+        <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
+            <div class="check">
+                <img id="check" src="images/check.png" alt="Yes" role="button" tabindex="0" aria-pressed="false" aria-label="Include 10 minute prep time">
+            </div>
+            <div class="x">
+                <img id="xmark" src="images/x.png" alt="No" role="button" tabindex="0" aria-pressed="false" aria-label="Skip prep time">
+            </div>
         </div>
     </div>
 
-    <div class="submit"  id="submit">
-        <img src="images/submit.png" style="cursor:pointer;">
-        <p> submit </p>
+    <!-- Submit Button -->
+    <div class="submit" id="submit" role="button" tabindex="0" aria-label="Start study session">
+        <img src="images/submit.png" alt="">
+        <p>Start Study</p>
     </div>
-     
 
-
-</div>
-
-<script src="myscripts.js"></script>
+    <!-- Scripts -->
+    <script src="myscripts.js"></script>
 </body>
 
-<!--  <input type="number" id="totalTime" required></p> -->
 </html>
-
-<!-- add to list of integers kept in java  -->

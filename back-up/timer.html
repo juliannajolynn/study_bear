@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- holds the metadata that helps the browser understand how to read the document. -->
+<head>
+
+    <!-- setting font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Esteban&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- (title for webpage on browser goes here) -->
+    <title>Timey Bear: Study Clock</title>
+
+    <!-- (link to wedpage's stylesheet and js) -->
+    <link rel="stylesheet" href="./style.css">
+    <script src="timer.js"></script>
+
+</head>
+
+
+<!-- contains all Website content -->
+<body>
+
+    <!-- background will be in js NEED TO DO-->
+
+    <!-- bear and elements-->
+    <div class="bear">
+        <img src="images/bear_reading.gif" alt="oh no! something is broken!">
+    </div>
+
+    <div class="notepad-wrapper">
+        <div class="notepad">
+            <img src="images/notepad.png">
+            <span id="plan" class="plan"></span>
+        </div>
+    </div>
+
+    <div class="book_cover">
+        <img src="images/yellow_book.png" alt="oh no! something is broken!">
+    </div>
+
+    <div class="book_gif">
+        <img src="images/book_turning.gif" alt="oh no! something is broken!">
+    </div>
+
+
+    <!-- <span id="top_text" class="top_text"> </span> GET RID OF IN CSS-->
+
+    <div class="back" id="back" style="cursor:pointer;"> <!-- UPDATE CSS, js --> 
+        <img src="images/y_x.png" alt="oh no! something is broken!">
+    </div>
+
+
+    <div class="timer_box" id="timer_box">
+
+        <div class="base-timer">
+
+        <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g class="base-timer__circle">
+                <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
+                <path
+                id="base-timer-path-remaining"
+                stroke-dasharray="283"
+                class="base-timer__path-remaining ${remainingPathColor}"
+                d="
+                    M 50, 50
+                    m -45, 0
+                    a 45,45 0 1,0 90,0
+                    a 45,45 0 1,0 -90,0
+                "
+                ></path>
+            </g>
+         </svg>
+         <span id="base-timer-label" class="base-timer__label"> </span>
+
+        </div>
+
+        <div id="play_button" style="cursor:pointer;">
+            <img src="images/y_play.png">
+        </div>
+        <div id="pause_button" style="cursor:pointer;">
+            <img src="images/y_pause.png">
+        </div>
+
+         <div id="modalSure" class="modalSure">
+         <div class="modalSure-content">
+            <p> <span style="color:#894343; font-size: 150%;">  Are you sure you wish to end? All progress will be lost. </span> <br>
+                press "c" to continue, "q" to quit.
+            </p>
+                
+        </div>
+
+        
+
+
+    </div>
+
+    <audio id="ding" src="images/sound.mp3"></audio>
+
+
+</body>
+
+<!--  <input type="number" id="totalTime" required></p> -->
+</html>

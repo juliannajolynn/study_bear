@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Timey Bear Study Session Complete - See your progress and start another session.">
+    
+    <title>Great Work! Timey Study Session Complete</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Esteban&family=Jockey+One&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <!-- Background -->
+    <div class="background-image">
+        <img src="images/pink_background.png" alt="Pink floral background">
+    </div>
+
+    <!-- Main Content -->
+    <div class="results-container">
+        <!-- Celebration Bear -->
+        <div class="celebration" style="margin-bottom: 30px;">
+            <img src="images/bear_reading.gif" alt="Timey the study bear celebrating" style="width: 150px; height: auto;">
+        </div>
+
+        <!-- Completion Message -->
+        <h1>Great Work!</h1>
+        <p style="font-size: clamp(1.1rem, 3vw, 1.3rem); color: #894343; margin-bottom: 30px;">
+            You completed your study session! 🎉
+        </p>
+
+        <!-- Statistics -->
+        <div class="stats-box">
+            <div class="stat-item">
+                <div class="stat-label">Session Duration</div>
+                <div class="stat-value" id="duration-minutes">--</div>
+                <div style="font-size: 0.9rem; color: #AB6666;">minutes</div>
+            </div>
+
+            <div class="stat-item" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid rgba(218, 162, 162, 0.3);">
+                <div class="stat-label">Total Study Time</div>
+                <div class="stat-value" id="total-study-time">--</div>
+                <div style="font-size: 0.9rem; color: #AB6666;">minutes planned</div>
+            </div>
+
+            <div class="stat-item" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid rgba(218, 162, 162, 0.3);">
+                <div class="stat-label">Phases Completed</div>
+                <div class="stat-value" id="phases-completed">--</div>
+                <div style="font-size: 0.9rem; color: #AB6666;">focus & break cycles</div>
+            </div>
+
+            <div class="stat-item" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid rgba(218, 162, 162, 0.3);">
+                <div class="stat-label">Today's Sessions</div>
+                <div class="stat-value" id="daily-sessions">--</div>
+                <div style="font-size: 0.9rem; color: #AB6666;">total completed</div>
+            </div>
+        </div>
+
+        <!-- Motivational Message -->
+        <p style="font-size: 1rem; color: #7c5350; margin-top: 30px; font-style: italic;">
+            <span id="motivational-message">You're doing amazing! Keep up the good work! 💪</span>
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-button primary" id="new-session-btn">
+                Start Another Session
+            </button>
+            <button class="action-button" id="home-btn">
+                Back to Home
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="results.js"></script>
+</body>
+
+</html>

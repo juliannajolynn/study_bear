@@ -1,110 +1,159 @@
-document.addEventListener("DOMContentLoaded", () => {
+// ============================================
+// TIMEY STUDY BEAR - Main Form Handler
+// ============================================
 
+// Constants
+const CONFIG = {
+  MIN_STUDY_TIME: 30,
+  PREP_TIME_DURATION: 10,
+  STORAGE_KEYS: {
+    TIMES: 'timeyTimes',
+    TOTAL_TIME: 'timeyTotalTime',
+    INCLUDE_PREP: 'timeyIncludePrep',
+    POMODORO_SPLIT: 'timeyPomodoroSplit'
+  }
+};
 
-  const check = document.getElementById('check');
-  const xmark = document.getElementById('xmark');
+const POMODORO_SPLITS = {
+  '20/5': { study: 20, break: 5 },
+  '25/5': { study: 25, break: 5 },
+  '45/15': { study: 45, break: 15 },
+  '50/10': { study: 50, break: 10 }
+};
 
-  function selectImage(selected, other) {
+document.addEventListener('DOMContentLoaded', () => {
+  // DOM Elements
+  const checkButton = document.getElementById('check');
+  const xmarkButton = document.getElementById('xmark');
+  const studyTimeInput = document.getElementById('times_total');
+  const pomodoroSelect = document.getElementById('pomo_split');
+  const conversionDisplay = document.getElementById('conversion');
+  const submitButton = document.getElementById('submit');
+
+  // State
+  let includePrepTime = null;
+
+  // ============================================
+  // Prep Time Selection Handler
+  // ============================================
+  const selectPrepTimeOption = (selected, other) => {
     selected.classList.add('outlined');
     other.classList.remove('outlined');
-  }
+  };
 
-   // extra 10 min 
-  let berkTime = null;
-
-  console.log("check element:", document.getElementById('check'));
-
-  check.addEventListener('click', () => {
-    selectImage(check, xmark);
-    berkTime = true;
+  checkButton.addEventListener('click', () => {
+    selectPrepTimeOption(checkButton, xmarkButton);
+    includePrepTime = true;
   });
 
-  xmark.addEventListener('click', () => {
-    selectImage(xmark, check);
-    berkTime = false;
+  xmarkButton.addEventListener('click', () => {
+    selectPrepTimeOption(xmarkButton, checkButton);
+    includePrepTime = false;
   });
 
-  const conversion = document.getElementById('conversion');
-
-  times_total.addEventListener('input', () => {
-    const minutes = parseInt(times_total.value);
-    if (!isNaN(minutes)) {
+  // ============================================
+  // Time Conversion Display
+  // ============================================
+  const updateTimeConversion = () => {
+    const minutes = parseInt(studyTimeInput.value, 10);
+    
+    if (!isNaN(minutes) && minutes > 0) {
       const hours = Math.floor(minutes / 60);
       const remainingMinutes = minutes % 60;
-      conversion.textContent = `(${hours} hr ${remainingMinutes} min)`;
-    } else {
-      conversion.textContent = '';
-    }
-  });
-
-
-
-  // timer stuff
-  const submit = document.getElementById('submit');
-  const times = [];
-  
-  // this list will take the total time and pomodoro split so that we can calculate how the timer will work
-  submit.addEventListener("click", function () {
-
-    if (berkTime == null) {
-      alert("Please complete the form!");
-      return; 
-    }
-
-    console.log("Submit was clicked!");
-    let time = 0;
-    let total_time = parseInt(document.getElementById("times_total").value);
-
-    // pomodoro split like "25/5"
-    let pomoSplit = document.getElementById("pomo_split").value.split("/").map(num => parseInt(num, 10));
-    let study_time = pomoSplit[0];
-    let break_time = pomoSplit[1];
-    console.log("Times from localStorage:", study_time);
-    console.log("Times from localStorage:", break_time);
-    times.length = 0;
-
-    let i = 0;
-
-    if (berkTime) {
-      times[i] = 10;
-      time += 10;
-    } else {
-      times[i] = 0;
-    }
-    i++;
-
-
-    while (time < total_time) {
-      if (i % 2 == 1) {
-        times[i] = study_time;
-        time += study_time;
+      
+      if (hours > 0) {
+        conversionDisplay.textContent = `(${hours}h ${remainingMinutes}m)`;
       } else {
-        times[i] = break_time;
-        time += break_time;
+        conversionDisplay.textContent = `(${remainingMinutes}m)`;
       }
+    } else {
+      conversionDisplay.textContent = '';
+    }
+  };
 
-      if (time > total_time) {
-        let overflow = time - total_time;
-        // ex 50 - 30 = 20
+  studyTimeInput.addEventListener('input', updateTimeConversion);
 
-        if (i % 2 == 1) {
-          // study
-          times[i] = study_time - overflow; 
-        } else {
-          times[i] = break_time - overflow; 
-        }
+  // ============================================
+  // Pomodoro Schedule Generator
+  // ============================================
+  const generateStudySchedule = (totalMinutes, pomodoroSplit, hasPrepTime) => {
+    const schedule = [];
+    let elapsedTime = 0;
+    let isStudyPhase = true;
 
-        break;
-      }
+    // Add prep time if selected
+    if (hasPrepTime) {
+      schedule.push({
+        type: 'prep',
+        duration: CONFIG.PREP_TIME_DURATION
+      });
+      elapsedTime += CONFIG.PREP_TIME_DURATION;
+    }
 
-      i++;
-    } 
+    // Generate pomodoro cycles
+    while (elapsedTime < totalMinutes) {
+      const phaseType = isStudyPhase ? 'study' : 'break';
+      const phaseDuration = isStudyPhase 
+        ? pomodoroSplit.study 
+        : pomodoroSplit.break;
 
-    localStorage.setItem('times', JSON.stringify(times));
-    localStorage.setItem('total_time', JSON.stringify(total_time));
+      const remainingTime = totalMinutes - elapsedTime;
+      const actualDuration = Math.min(phaseDuration, remainingTime);
 
-    window.location.href = "timer.html";
+      schedule.push({
+        type: phaseType,
+        duration: actualDuration
+      });
+
+      elapsedTime += actualDuration;
+      isStudyPhase = !isStudyPhase;
+
+      // Stop if we've reached the total time
+      if (elapsedTime >= totalMinutes) break;
+    }
+
+    return schedule;
+  };
+
+  // ============================================
+  // Form Submission Handler
+  // ============================================
+  submitButton.addEventListener('click', () => {
+    // Validate form
+    if (includePrepTime === null) {
+      alert('Please select whether you want prep time!');
+      return;
+    }
+
+    const totalMinutes = parseInt(studyTimeInput.value, 10);
+    if (isNaN(totalMinutes) || totalMinutes < CONFIG.MIN_STUDY_TIME) {
+      alert(`Please enter at least ${CONFIG.MIN_STUDY_TIME} minutes!`);
+      return;
+    }
+
+    const pomodoroSplitValue = pomodoroSelect.value;
+    const pomodoroSplit = POMODORO_SPLITS[pomodoroSplitValue];
+
+    if (!pomodoroSplit) {
+      alert('Please select a valid pomodoro split!');
+      return;
+    }
+
+    // Generate schedule
+    const schedule = generateStudySchedule(totalMinutes, pomodoroSplit, includePrepTime);
+
+    // Save to localStorage
+    try {
+      localStorage.setItem(CONFIG.STORAGE_KEYS.TIMES, JSON.stringify(schedule));
+      localStorage.setItem(CONFIG.STORAGE_KEYS.TOTAL_TIME, JSON.stringify(totalMinutes));
+      localStorage.setItem(CONFIG.STORAGE_KEYS.INCLUDE_PREP, JSON.stringify(includePrepTime));
+      localStorage.setItem(CONFIG.STORAGE_KEYS.POMODORO_SPLIT, pomodoroSplitValue);
+
+      // Redirect to timer page
+      window.location.href = 'timer.html';
+    } catch (error) {
+      console.error('Error saving session data:', error);
+      alert('Error starting session. Please try again.');
+    }
   });
-
-
 });
