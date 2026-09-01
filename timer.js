@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (timeLeftTotal <= 0) {
                     clearInterval(timerIntervalTotal); // clear
-                    window.location.href = "credits.html";
+                    window.location.href = "results.html";
                 }
             } else {
                 //

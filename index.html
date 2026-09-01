@@ -1,42 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Timey: A cute study timer with conversational setup and Pomodoro technique.">
-    
     <title>Timey Bear: Let's Study!</title>
-    
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- Stylesheet -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
-    <!-- Background -->
     <div class="background-image">
-        <img src="images/pink_background.png" alt="Pink background">
+        <img src="images/pink_background.png" alt="">
     </div>
 
-    <!-- Main Container -->
     <div class="conversational-container">
-        
-        <!-- Left: Speech Bubble Area -->
         <div class="conversation-area">
             <div class="speech-bubble" id="speechBubble">
                 <img src="images/speech-bubble.png" alt="">
-                <div class="bubble-text" id="bubbleText">
-                    Hello! I'm Timey.
-                </div>
+                <div class="bubble-text" id="bubbleText">Hello! I'm Timey.</div>
             </div>
         </div>
-
-        <!-- Right: Bear & Controls -->
         <div class="bear-area">
             <div class="bear-container">
                 <img src="images/timey-bear.png" alt="Timey the study bear" class="bear-image">
@@ -44,24 +28,10 @@
         </div>
     </div>
 
-    <!-- Controls Area (Below) -->
-    <div class="controls-area" id="controlsArea">
-        <button class="button button-primary" id="primaryBtn">Next</button>
-        <button class="button button-secondary" id="secondaryBtn" style="display: none;">Back</button>
-    </div>
+    <div class="input-area" id="inputArea" style="display: none;"></div>
 
-    <!-- Input Area (Hidden by default) -->
-    <div class="input-area" id="inputArea" style="display: none;">
-        <input 
-            type="text" 
-            class="input-field" 
-            id="userInput" 
-            placeholder="Enter value"
-            aria-label="User input">
-    </div>
+    <div class="controls-area" id="controlsArea"></div>
 
-    <!-- Scripts -->
     <script src="conversational.js"></script>
 </body>
-
 </html>
